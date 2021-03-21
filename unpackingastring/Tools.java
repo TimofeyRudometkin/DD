@@ -80,6 +80,47 @@ public class Tools {
 		for(int i=0; i<array.length; i++) {
 			System.out.print(Character.toString(array[i]));
 		}
+		System.out.println("");
 	}
 	
+	public static boolean validationInputString(String inputString) {
+		char[] inputStringArray = inputString.toCharArray();
+		char[] verificationCharactersArray = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
+											  'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
+											  'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
+											  'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
+											  '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
+		int ParenthesesCount = 0;
+		boolean checkFirst = false;
+		boolean checkSecond = true;
+		
+		for(int i=0; i < inputStringArray.length; i++) {
+			if(inputStringArray[i] == '[') {
+				ParenthesesCount++;
+			}else if(inputStringArray[i] == ']') {
+				ParenthesesCount--;
+			}else {
+				for(int j=0; j<verificationCharactersArray.length; j++) {
+					if(verificationCharactersArray[j] == inputStringArray[i]) {
+						checkFirst = true;
+						break;
+					}
+				}
+				if(!checkFirst && checkSecond) {
+					System.out.println("Invalid character entered.");
+					checkSecond = false;
+				}
+				checkFirst = false;
+			}
+		}
+		if(ParenthesesCount != 0) {
+			System.out.println("The number of opening square brackets must be equal to the number of closing "
+					+ "square brackets.");
+			checkSecond = false;
+		}
+		if(!checkSecond) {
+			System.out.println("Please repeat the input.");
+		}
+		return checkSecond;
+	}
 }
